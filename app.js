@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
 
-let x, y, xpr, ypr;
+let x, y;
 let board = new five.Board();
 board.on("ready", function () {
     console.log('Arduino is ready.');
@@ -26,8 +26,6 @@ board.on("ready", function () {
             pins: ["A4", "A5"]
         });
         joystick.on("change", function () {
-            xpr = x;
-            ypr = y;
             x = Math.floor(this.x * 10);
             y = Math.floor(this.y * 10);
             emitXY(x, y);
@@ -38,7 +36,9 @@ board.on("ready", function () {
                 xr: x,
                 yr: y
             });
-            console.log('Emit XY!')
+            console.log("x: " + x);
+            console.log("y: " + y);
+            console.log("==========")
         };
     });
 });
